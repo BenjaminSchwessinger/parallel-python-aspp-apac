@@ -19,4 +19,5 @@ indices = np.broadcast_arrays(t, row_coord, col_coord)
 full_data = ndi.map_coordinates(data, indices, mode='nearest')
 
 f = h5py.File('weather.hdf5', 'w')
-f.create_dataset("temperature", data=full_data)
+f.create_dataset("temperature", data=full_data,
+                 chunks=(16,) + full_data.shape[1:])
